@@ -1,8 +1,15 @@
 ## example
 
 ```
-func fact(num){
-    return num\*fact(-1)
+fnc fact(num){
+    -> num*fact(-1)
+}
+fnc max(num1,num2){
+    if num1 > num2 {
+        -> num1
+    }else{
+        -> num2
+    }
 }
 
 be i = 0 ;

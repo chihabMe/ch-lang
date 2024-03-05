@@ -8,8 +8,8 @@ type Token struct {
 }
 
 var keywords = map[string]TokenType{
-	"func": FUNCTION,
-	"be":   BE,
+	"fnc": FUNCTION,
+	"be":  BE,
 }
 
 func LookupIdent(ident string) TokenType {
@@ -36,6 +36,9 @@ const (
 	RPAREN = ")"
 	LBRACE = "{"
 	RBRACE = "{"
+
+	MORETHEN    = ">"
+	SMALLERTHEN = "<"
 
 	FUNCTION = "FUNCTION"
 	BE       = "BE"

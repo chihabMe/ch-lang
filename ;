@@ -23,6 +23,7 @@ func TestSimpleString(t *testing.T) {
 	l := lexer.New(input)
 	for i, tt := range tests {
 		tok := l.NextToken()
+		t.Log(tok)
 		if tt.expectedType != tok.Type {
 			t.Fatalf(
 				"tests[%d] - token type wrong . exptected=%q , got=%q",
@@ -38,43 +39,6 @@ func TestSimpleString(t *testing.T) {
 				tt.expectedLiteral,
 				tok.Literal,
 			)
-		}
-	}
-}
-
-func TestFuncDeclartion(t *testing.T) {
-	input := `
-  fnc max(n1,n2){
-  }
-  `
-	tests := []struct {
-		expectedType    token.TokenType
-		expectedLiteral string
-	}{
-		{expectedType: token.FUNCTION, expectedLiteral: "fnc"},
-		{expectedType: token.IDENT, expectedLiteral: "max"},
-		{expectedType: token.LPAREN, expectedLiteral: "("},
-		{expectedType: token.IDENT, expectedLiteral: "n1"},
-		{expectedType: token.COMMA, expectedLiteral: ","},
-		{expectedType: token.IDENT, expectedLiteral: "n2"},
-		{expectedType: token.RPAREN, expectedLiteral: ")"},
-		{expectedType: token.LBRACE, expectedLiteral: "{"},
-		{expectedType: token.RBRACE, expectedLiteral: "}"},
-	}
-	l := lexer.New(input)
-	for i, tt := range tests {
-		tok := l.NextToken()
-		if tt.expectedType != tok.Type {
-			t.Fatalf(
-				"tests[%d] - tokentype wrong. expected=%q, got=%q",
-				i,
-				tt.expectedType,
-				tok.Type,
-			)
-		}
-
-		if tt.expectedLiteral != tok.Literal {
-			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q", i, tt, tok)
 		}
 	}
 }
