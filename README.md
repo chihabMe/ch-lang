@@ -1,24 +1,37 @@
-## example
+# ch-lang
 
-```
-fnc fact(num){
-    -> num*fact(-1)
+ch-lang is an interpreted programming language built with Go. It is designed to
+be simple, yet powerful, providing an easy-to-use syntax for both beginners and
+experienced programmers.
+
+## Example / Syntax
+
+```ch
+// Define a function to calculate the factorial of a number
+fnc fact(num) {
+    if num <= 1 {
+        -> 1
+    } else {
+        -> num * fact(num - 1)
+    }
 }
-fnc max(num1,num2){
+
+// Define a function to find the maximum of two numbers
+fnc max(num1, num2) {
     if num1 > num2 {
         -> num1
-    }else{
+    } else {
         -> num2
     }
 }
 
-be i = 0 ;
+// Initialize variables
+be i = 0;
 be max = 10;
-while i < max{
+
+// Loop to calculate and echo the factorial of numbers from 0 to 'max'
+while i < max {
     echo(fact(i))
     i++
 }
 ```
-# ch-lang
-# ch-lang
-# ch-lang
