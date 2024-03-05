@@ -26,8 +26,8 @@ fnc max(num1, num2) {
 }
 
 // Initialize variables
-be i = 0;
-be max = 10;
+set i = 0;
+set max = 10;
 
 // Loop to calculate and echo the factorial of numbers from 0 to 'max'
 while i < max {

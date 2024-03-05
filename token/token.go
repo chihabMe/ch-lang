@@ -9,7 +9,7 @@ type Token struct {
 
 var keywords = map[string]TokenType{
 	"fnc": FUNCTION,
-	"be":  BE,
+	"SET": SET,
 }
 
 func LookupIdent(ident string) TokenType {
@@ -41,5 +41,5 @@ const (
 	SMALLERTHEN = "<"
 
 	FUNCTION = "FUNCTION"
-	BE       = "BE"
+	SET      = "SET"
 )
