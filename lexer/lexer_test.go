@@ -84,6 +84,56 @@ func TestFuncDeclaration(t *testing.T) {
 	}
 }
 
+func TestOperators(t *testing.T) {
+	input := `
+  set num = 10 ;
+  *-+/ ;
+  5 < 20 > 10 ;
+  `
+
+	tests := []struct {
+		expectedType    token.TokenType
+		expectedLiteral string
+	}{
+		{token.SET, "set"},
+		{token.IDENT, "num"},
+		{token.ASSIGN, "="},
+		{token.INT, "10"},
+		{token.SEMICOLON, ";"},
+		{token.ASTERISK, "*"},
+		{token.MINUS, "-"},
+		{token.PLUS, "+"},
+		{token.SLASH, "/"},
+		{token.SEMICOLON, ";"},
+		{token.INT, "5"},
+		{token.ST, "<"},
+		{token.INT, "20"},
+		{token.LT, ">"},
+		{token.INT, "10"},
+		{token.SEMICOLON, ";"},
+	}
+	l := lexer.New(input)
+	for i, tt := range tests {
+		tok := l.NextToken()
+		if tt.expectedType != tok.Type {
+			t.Fatalf("tests[%d] - wrong type expected=%q , got=%q", i, tt.expectedType, tok.Type)
+		}
+		if tt.expectedLiteral != tok.Literal {
+			t.Fatalf(
+				"tests[%d] -  wrong literal expected=%q , got=%q ",
+				i,
+				tt.expectedLiteral,
+				tok.Literal,
+			)
+		}
+
+		// 		if tok.Literal != tt.expectedLiteral {
+		// 			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
+		// 				i, tt.expectedLiteral, tok.Literal)
+		// 		}
+	}
+}
+
 // func TestNextToken(t *testing.T) {
 // 	input := "=+(),;"
 // 	tests := []struct {
