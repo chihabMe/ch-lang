@@ -26,8 +26,15 @@ const (
 	IDENT = "IDENT"
 	INT   = "INT"
 
-	ASSIGN = "="
-	PLUS   = "+"
+	// operators
+	ASSIGN   = "="
+	PLUS     = "+"
+	MINUS    = "-"
+	BANG     = "!"
+	ASTERISK = "*"
+	SLASH    = "/"
+	LT       = ">"
+	ST       = "<"
 
 	COMMA     = ","
 	SEMICOLON = ";"
@@ -36,9 +43,6 @@ const (
 	RPAREN = ")"
 	LBRACE = "{"
 	RBRACE = "{"
-
-	MORETHEN    = ">"
-	SMALLERTHEN = "<"
 
 	FUNCTION = "FUNCTION"
 	SET      = "SET"
