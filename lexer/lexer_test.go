@@ -7,59 +7,59 @@ import (
 	"github.com/chihabMe/mg-lang/token"
 )
 
-func TestSimpleString(t *testing.T) {
-	input := "=+(),;"
-	tests := []struct {
-		expectedType    token.TokenType
-		expectedLiteral string
-	}{
-		{expectedType: token.ASSIGN, expectedLiteral: "="},
-		{expectedType: token.PLUS, expectedLiteral: "+"},
-		{expectedType: token.LPAREN, expectedLiteral: "("},
-		{expectedType: token.RPAREN, expectedLiteral: ")"},
-		{expectedType: token.COMMA, expectedLiteral: ","},
-		{expectedType: token.SEMICOLON, expectedLiteral: ";"},
-	}
-	l := lexer.New(input)
-	for i, tt := range tests {
-		tok := l.NextToken()
-		if tt.expectedType != tok.Type {
-			t.Fatalf(
-				"tests[%d] - token type wrong . exptected=%q , got=%q",
-				i,
-				tt.expectedType,
-				tok.Type,
-			)
-		}
-		if tt.expectedLiteral != tok.Literal {
-			t.Fatalf(
-				"tests[%d] - token litral . exptected=%q , got=%q",
-				i,
-				tt.expectedLiteral,
-				tok.Literal,
-			)
-		}
-	}
-}
-
-func TestFuncDeclartion(t *testing.T) {
+func TestFuncDeclaration(t *testing.T) {
 	input := `
-  fnc max(n1,n2){
+  fnc add(n1,n2){
+    n1+n2;
   }
+  set num1 = 5 ;
+  set num2 = 10 ;
+  set result = add(num1,num2);
   `
 	tests := []struct {
 		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{expectedType: token.FUNCTION, expectedLiteral: "fnc"},
-		{expectedType: token.IDENT, expectedLiteral: "max"},
+		{expectedType: token.IDENT, expectedLiteral: "add"},
 		{expectedType: token.LPAREN, expectedLiteral: "("},
 		{expectedType: token.IDENT, expectedLiteral: "n1"},
 		{expectedType: token.COMMA, expectedLiteral: ","},
 		{expectedType: token.IDENT, expectedLiteral: "n2"},
 		{expectedType: token.RPAREN, expectedLiteral: ")"},
 		{expectedType: token.LBRACE, expectedLiteral: "{"},
+		{expectedType: token.IDENT, expectedLiteral: "n1"},
+		{expectedType: token.PLUS, expectedLiteral: "+"},
+		{expectedType: token.IDENT, expectedLiteral: "n2"},
+		{expectedType: token.SEMICOLON, expectedLiteral: ";"}, // This line was corrected
 		{expectedType: token.RBRACE, expectedLiteral: "}"},
+		// end of func
+		// set num1 = 5 ;
+		// set num2 = 10;
+		// set result = add(num1,num2);
+
+		{expectedType: token.SET, expectedLiteral: "set"},
+		{expectedType: token.IDENT, expectedLiteral: "num1"},
+		{expectedType: token.ASSIGN, expectedLiteral: "="},
+		{expectedType: token.INT, expectedLiteral: "5"},
+		{expectedType: token.SEMICOLON, expectedLiteral: ";"},
+
+		{expectedType: token.SET, expectedLiteral: "set"},
+		{expectedType: token.IDENT, expectedLiteral: "num2"},
+		{expectedType: token.ASSIGN, expectedLiteral: "="},
+		{expectedType: token.INT, expectedLiteral: "10"},
+		{expectedType: token.SEMICOLON, expectedLiteral: ";"},
+
+		{expectedType: token.SET, expectedLiteral: "set"},
+		{expectedType: token.IDENT, expectedLiteral: "result"},
+		{expectedType: token.ASSIGN, expectedLiteral: "="},
+		{expectedType: token.IDENT, expectedLiteral: "add"},
+		{expectedType: token.LPAREN, expectedLiteral: "("},
+		{expectedType: token.IDENT, expectedLiteral: "num1"},
+		{expectedType: token.COMMA, expectedLiteral: ","},
+		{expectedType: token.IDENT, expectedLiteral: "num2"},
+		{expectedType: token.RPAREN, expectedLiteral: ")"},
+		{expectedType: token.SEMICOLON, expectedLiteral: ";"},
 	}
 	l := lexer.New(input)
 	for i, tt := range tests {
@@ -74,7 +74,12 @@ func TestFuncDeclartion(t *testing.T) {
 		}
 
 		if tt.expectedLiteral != tok.Literal {
-			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q", i, tt, tok)
+			t.Fatalf(
+				"tests[%d] - literal wrong. expected=%q, got=%q",
+				i,
+				tt.expectedLiteral,
+				tok.Literal,
+			)
 		}
 	}
 }
