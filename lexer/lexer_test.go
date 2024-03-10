@@ -127,10 +127,62 @@ func TestOperators(t *testing.T) {
 			)
 		}
 
-		// 		if tok.Literal != tt.expectedLiteral {
-		// 			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
-		// 				i, tt.expectedLiteral, tok.Literal)
-		// 		}
+	}
+}
+
+func TestLongKeywords(t *testing.T) {
+	input := `
+  fnc isPositive(num){
+    if num < 0 {
+      return true
+    } else {
+      return false
+    }
+  }
+  `
+	tests := []struct {
+		expectedType    token.TokenType
+		expectedLiteral string
+	}{
+		{token.FUNCTION, "fnc"},
+		{token.IDENT, "isPositive"},
+		{token.LPAREN, "("},
+		{token.IDENT, "num"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.IF, "if"},
+		{token.IDENT, "num"},
+		{token.ST, "<"},
+		{token.INT, "0"},
+		{token.LBRACE, "{"},
+		{token.RETURN, "return"},
+		{token.TRUE, "true"},
+		{token.RBRACE, "}"},
+		{token.ELSE, "else"},
+		{token.LBRACE, "{"},
+		{token.RETURN, "return"},
+		{token.FALSE, "false"},
+	}
+	l := lexer.New(input)
+	for i, tk := range tests {
+		tok := l.NextToken()
+		if tk.expectedType != tok.Type {
+			t.Fatalf(
+				"tests[%d] - tokentype wrong. expected=%q, got=%q",
+				i,
+				tk.expectedType,
+				tok.Type,
+			)
+		}
+
+		if tk.expectedLiteral != tok.Literal {
+			t.Fatalf(
+				"tests[%d] - tokentype wrong. expected=%q, got=%q",
+				i,
+				tk.expectedLiteral,
+				tok.Literal,
+			)
+		}
 	}
 }
 
