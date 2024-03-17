@@ -60,6 +60,7 @@ func TestFuncDeclaration(t *testing.T) {
 		{expectedType: token.IDENT, expectedLiteral: "num2"},
 		{expectedType: token.RPAREN, expectedLiteral: ")"},
 		{expectedType: token.SEMICOLON, expectedLiteral: ";"},
+		{expectedType: token.EOF, expectedLiteral: ""},
 	}
 	l := lexer.New(input)
 	for i, tt := range tests {
