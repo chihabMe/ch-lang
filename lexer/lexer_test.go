@@ -135,11 +135,13 @@ func TestLongKeywords(t *testing.T) {
 	input := `
   fnc isPositive(num){
     if num < 0 {
-      return true
+      return true ;
     } else {
-      return false
+      return false ;
     }
   }
+    set valid = true == true ;
+    set Invalid = false != false ;
   `
 	tests := []struct {
 		expectedType    token.TokenType
@@ -158,11 +160,30 @@ func TestLongKeywords(t *testing.T) {
 		{token.LBRACE, "{"},
 		{token.RETURN, "return"},
 		{token.TRUE, "true"},
+		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.ELSE, "else"},
 		{token.LBRACE, "{"},
 		{token.RETURN, "return"},
 		{token.FALSE, "false"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACE, "}"},
+		{token.RBRACE, "}"},
+		{token.SET, "set"},
+		{token.IDENT, "valid"},
+		{token.ASSIGN, "="},
+		{token.TRUE, "true"},
+		{token.EQ, "=="},
+		{token.TRUE, "true"},
+		{token.SEMICOLON, ";"},
+		{token.SET, "set"},
+		{token.IDENT, "Invalid"},
+		{token.ASSIGN, "="},
+		{token.FALSE, "false"},
+		{token.NOT_EQ, "!="},
+		{token.FALSE, "false"},
+		{token.SEMICOLON, ";"},
+		{token.EOF, ""},
 	}
 	l := lexer.New(input)
 	for i, tk := range tests {
@@ -186,96 +207,3 @@ func TestLongKeywords(t *testing.T) {
 		}
 	}
 }
-
-// func TestNextToken(t *testing.T) {
-// 	input := "=+(),;"
-// 	tests := []struct {
-// 		expectedType    token.TokenType
-// 		expectedLiteral string
-// 	}{
-
-// 		{token.ASSIGN, "="},
-// 		{token.PLUS, "+"},
-// 		{token.LPAREN, "("},
-// 		{token.RPAREN, ")"},
-// 		{token.COMMA, ","},
-// 		{token.SEMICOLON, ";"},
-// 		{token.EOF, ""},
-// 	}
-// 	l := lexer.New(input)
-// 	for i, tt := range tests {
-// 		tok := l.NextToken()
-// 		if tok.Type != tt.expectedType {
-// 			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q",
-// 				i, tt.expectedType, tok.Type)
-// 		}
-// 		if tok.Literal != tt.expectedLiteral {
-// 			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
-// 				i, tt.expectedLiteral, tok.Literal)
-// 		}
-// 	}
-
-// }
-
-// func TestNextToken2(t *testing.T) {
-
-// 	input := `
-// 	let five = 5;
-// 	`
-// 	tests := []struct {
-// 		expectedType    token.TokenType
-// 		expectedLiteral string
-// 	}{
-// 		{token.LET, "let"},
-// 		{token.IDENT, "five"},
-// 		{token.ASSIGN, "="},
-// 		{token.INT, "5"},
-// 		{token.SEMICOLON, ";"},
-// 	}
-// 	l := lexer.New(input)
-// 	for i, tt := range tests {
-// 		tok := l.NextToken()
-// 		log.Println(i, tok, tt)
-// 		if tok.Type != tt.expectedType {
-// 			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q",
-// 				i, tt.expectedType, tok.Type)
-// 		}
-// 		if tok.Literal != tt.expectedLiteral {
-// 			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
-// 				i, tt.expectedLiteral, tok.Literal)
-// 		}
-// 	}
-// }
-//
-// func TestNextToken3(t *testing.T) {
-// 	input := `let five = 5;
-//     `
-// 	tests := []struct {
-// 		expectedType    token.TokenType
-// 		expectedLiteral string
-// 	}{
-// 		{token.LET, "let"},
-// 		{token.IDENT, "five"},
-// 		{token.ASSIGN, "="},
-// 		{token.INT, "5"},
-// 		{token.SEMICOLON, ";"}, // Update this line to expect a semicolon token
-// 		// Add other test cases as needed
-// 	}
-//
-// 	l := lexer.New(input)
-//
-// 	for i, tt := range tests {
-// 		tok := l.NextToken()
-// 		fmt.Println(i, tok)
-//
-// 		if tok.Type != tt.expectedType {
-// 			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q",
-// 				i, tt.expectedType, tok.Type)
-// 		}
-//
-// 		if tok.Literal != tt.expectedLiteral {
-// 			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
-// 				i, tt.expectedLiteral, tok.Literal)
-// 		}
-// 	}
-// }
