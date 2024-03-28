@@ -13,6 +13,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Hello %s\n", user.Username)
+	fmt.Printf("Hello %s you are using mg-lang \n ", user.Username)
 	repel.Start(os.Stdin, os.Stdout)
 }

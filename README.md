@@ -10,18 +10,18 @@ experienced programmers.
 // Define a function to calculate the factorial of a number
 fnc fact(num) {
     if num <= 1 {
-        -> 1
+        return  1 ;
     } else {
-        -> num * fact(num - 1)
+        return  num * fact(num - 1) ;
     }
 }
 
 // Define a function to find the maximum of two numbers
 fnc max(num1, num2) {
-    if num1 > num2 {
-        -> num1
+    if (num1 > num2) {
+        return num1 ;
     } else {
-        -> num2
+        return  num2 ;
     }
 }
 
